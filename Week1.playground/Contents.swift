@@ -1,10 +1,10 @@
 import Foundation
 
 class Person {
-    var name: String
+    let name: String
     var surname: String?
-    var type: PersonType
-    var gender: Gender
+    let type: PersonType
+    let gender: Gender
     var phoneNumber: Int?
     var toys: [Toy] = []
     
@@ -26,10 +26,15 @@ class Person {
     }
     func giveToy(person: Person, toy: Toy)  {
         if canHaveToy(person: person) {
-            toys.append(toy) 
+            toys.append(toy)
         }
     }
-    
+    func isSurnameSpecified() {
+        guard let surname = surname else {
+            return
+        }
+        print(surname)
+    }
     
 }
 
@@ -72,11 +77,11 @@ class Population {
         for person in people {
             if !person.toys.isEmpty {
                 for toy in person.toys {
-                    print("\(person.name) has \(toy.name)")
+                    print("\(person.name) has a toy named \(toy.name)")
                 }
             }
             else {
-                print("\(person.name) has no toys :(")
+                print("\(person.name) is too old to play with toys :(")
             }
         }
         
@@ -89,19 +94,20 @@ class Population {
         }
         
     }
-
+    
     
 }
 
 let population = Population()
-var bersan = Person(name: "Berşan", type: .adult, gender: .male)
+let bersan = Person(name: "Berşan", type: .adult, gender: .male)
 bersan.phoneNumber = 213123145
-var eric = Person(name: "Eric", type: .child, gender: .male)
-var umay = Person(name: "Umay", type: .child, gender: .female)
-var aslihan = Person(name: "Aslıhan", type: .adult, gender: .female)
+bersan.surname = "Konal"
+let yavuz = Person(name: "Yavuz", type: .child, gender: .male)
+let umay = Person(name: "Umay", type: .child, gender: .female)
+let aslihan = Person(name: "Aslıhan", type: .adult, gender: .female)
 aslihan.phoneNumber = 314314153
 population.people.append(bersan)
-population.people.append(eric)
+population.people.append(yavuz)
 population.people.append(umay)
 population.people.append(aslihan)
 
@@ -109,3 +115,6 @@ population.people.append(aslihan)
 population.giveToysToPeople(people: population.people)
 population.displayToys(people: population.people)
 population.displayPhoneNumbers(people: population.people)
+
+bersan.isSurnameSpecified()
+aslihan.isSurnameSpecified()
