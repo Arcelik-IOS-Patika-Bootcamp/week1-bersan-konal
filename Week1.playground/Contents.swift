@@ -2,31 +2,31 @@ import Foundation
 
 class Person {
     var name: String
-    var surname: String
+    var surname: String?
     var type: PersonType
     var gender: Gender
     var phoneNumber: Int?
     var toys: [Toy] = []
     
     
-    init(name: String, surname: String, type: PersonType,gender: Gender) {
+    init(name: String, type: PersonType,gender: Gender) {
         self.name = name
-        self.surname = surname
         self.type = type
         self.gender = gender
        
     }
+    //function that checks whether a person can have a toy.
     func canHaveToy(person: Person) -> Bool {
         switch person.type {
-        case .kid:
+        case .child:
             return true
-        case .grown:
+        case .adult:
             return false
         }
     }
     func giveToy(person: Person, toy: Toy)  {
         if canHaveToy(person: person) {
-            toys.append(toy)
+            toys.append(toy) 
         }
     }
     
@@ -34,8 +34,8 @@ class Person {
 }
 
 enum PersonType {
-    case kid
-    case grown
+    case child
+    case adult
 }
 enum Gender {
     case male
@@ -94,16 +94,18 @@ class Population {
 }
 
 let population = Population()
-var bersan = Person(name: "Berşan", surname: "Konal", type: .grown, gender: .male)
+var bersan = Person(name: "Berşan", type: .adult, gender: .male)
 bersan.phoneNumber = 213123145
-var eric = Person(name: "Eric", surname: "Leifsson",  type: .kid, gender: .male)
-var umay = Person(name: "Umay", surname: "Çağırkan", type: .kid, gender: .female)
+var eric = Person(name: "Eric", type: .child, gender: .male)
+var umay = Person(name: "Umay", type: .child, gender: .female)
+var aslihan = Person(name: "Aslıhan", type: .adult, gender: .female)
+aslihan.phoneNumber = 314314153
 population.people.append(bersan)
 population.people.append(eric)
 population.people.append(umay)
+population.people.append(aslihan)
 
 
 population.giveToysToPeople(people: population.people)
-
 population.displayToys(people: population.people)
 population.displayPhoneNumbers(people: population.people)
