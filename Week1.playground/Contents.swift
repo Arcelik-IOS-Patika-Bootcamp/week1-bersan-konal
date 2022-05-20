@@ -5,6 +5,7 @@ class Person {
     var surname: String
     var type: PersonType
     var gender: Gender
+    var phoneNumber: Int?
     var toys: [Toy] = []
     
     
@@ -13,6 +14,7 @@ class Person {
         self.surname = surname
         self.type = type
         self.gender = gender
+       
     }
     func canHaveToy(person: Person) -> Bool {
         switch person.type {
@@ -25,22 +27,10 @@ class Person {
     func giveToy(person: Person, toy: Toy)  {
         if canHaveToy(person: person) {
             toys.append(toy)
-            print( "\(person.name) now has a toy!")
-        }
-        else {
-            print("\(person.name) is too old for this :(")
         }
     }
-    func displayToys(person: Person) {
-        if !toys.isEmpty {
-            for toy in toys {
-                print("\(person.name) has \(toy.name)")
-            }
-        }
-        else {
-            print("\(person.name) has no toys :(")
-        }
-    }
+    
+    
 }
 
 enum PersonType {
@@ -65,11 +55,7 @@ enum ToyType {
 class Population {
     var people: [Person] = []
     
-    func populate(){
-        people.append(Person(name: "Berşan", surname: "Konal", type: .grown, gender: .male))
-        people.append(Person(name: "Eric", surname: "Leifsson",  type: .kid, gender: .male))
-        people.append(Person(name: "Umay", surname: "Çağırkan", type: .kid, gender: .female))
-    }
+    
     func giveToysToPeople(people: [Person]) {
         for person in people {
             if person.gender == .male {
@@ -82,15 +68,42 @@ class Population {
             }
         }
     }
+    func displayToys(people: [Person]) {
+        for person in people {
+            if !person.toys.isEmpty {
+                for toy in person.toys {
+                    print("\(person.name) has \(toy.name)")
+                }
+            }
+            else {
+                print("\(person.name) has no toys :(")
+            }
+        }
+        
+    }
+    func displayPhoneNumbers(people: [Person]) {
+        for person in people {
+            if let phoneNumber = person.phoneNumber {
+                print("\(person.name)'s phone number: \(phoneNumber)")
+            }
+        }
+        
+    }
+
     
 }
 
 let population = Population()
+var bersan = Person(name: "Berşan", surname: "Konal", type: .grown, gender: .male)
+bersan.phoneNumber = 213123145
+var eric = Person(name: "Eric", surname: "Leifsson",  type: .kid, gender: .male)
+var umay = Person(name: "Umay", surname: "Çağırkan", type: .kid, gender: .female)
+population.people.append(bersan)
+population.people.append(eric)
+population.people.append(umay)
 
-population.populate()
 
 population.giveToysToPeople(people: population.people)
 
-for person in population.people {
-    person.displayToys(person: person)
-}
+population.displayToys(people: population.people)
+population.displayPhoneNumbers(people: population.people)
