@@ -24,11 +24,13 @@ class Person {
             return false
         }
     }
+    //checks if the person is not adult, if not gives that person a toy
     func giveToy(person: Person, toy: Toy)  {
         if canHaveToy(person: person) {
             toys.append(toy)
         }
     }
+    
     func isSurnameSpecified() {
         guard let surname = surname else {
             return
@@ -60,7 +62,7 @@ enum ToyType {
 class Population {
     var people: [Person] = []
     
-    
+    //giving toys to person according to their gender
     func giveToysToPeople(people: [Person]) {
         for person in people {
             if person.gender == .male {
@@ -73,6 +75,7 @@ class Population {
             }
         }
     }
+    //printing toys if person is not adult
     func displayToys(people: [Person]) {
         for person in people {
             if !person.toys.isEmpty {
@@ -86,6 +89,7 @@ class Population {
         }
         
     }
+    //displaying phone numbers
     func displayPhoneNumbers(people: [Person]) {
         for person in people {
             if let phoneNumber = person.phoneNumber {
